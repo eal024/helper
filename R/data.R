@@ -1,6 +1,6 @@
 #' The basic amount in the National Insurance Scheme. Grunnbelopet i norwegian.
 #'
-#' The amounts is dated each year in may. The basic amount is uptedet each year in may.
+#' The amounts is dated each year in may. The basic amount is uptedet each year in may. Updated for 2025
 #'
 #' @format ## `grunnbelop`
 #' \describe{
