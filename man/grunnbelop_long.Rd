@@ -3,32 +3,56 @@
 \docType{data}
 \name{grunnbelop_long}
 \alias{grunnbelop_long}
-\title{Norwegian National Insurance basic amount (G)}
+\title{Grunnbeløpet i folketrygden (G) — månedlig tidsserie}
 \format{
-\subsection{\code{grunnbelop}}{
-
-A data frame with one row per month and 5 columns:
+Et datasett med én rad per måned og 5 kolonner:
 \describe{
-\item{periode}{Date (YYYY-MM-DD). First day of the month.}
-\item{grunnbelop_per_ar}{Basic amount (G) in NOK per year for the relevant period.}
-\item{grunnbelop_per_maned}{Basic amount in NOK per month for the relevant period.}
-\item{gjennomsnitt_per_ar}{Average basic amount in NOK per year (annual average).}
-\item{omregnings_faktor}{Conversion factor (ratio) associated with the adjustment of G.}
-}
+  \item{periode}{\code{Date}. Første dag i måneden (YYYY-MM-DD).}
+  \item{grunnbelop_per_ar}{\code{numeric}. Gjeldende grunnbeløp i NOK per år for perioden.}
+  \item{grunnbelop_per_maned}{\code{numeric}. Gjeldende grunnbeløp i NOK per måned for perioden
+    (\code{grunnbelop_per_ar / 12}).}
+  \item{gjennomsnitt_per_ar}{\code{numeric}. Gjennomsnittlig grunnbeløp i NOK per år, beregnet
+    som vektet snitt av G-verdiene i kalenderåret. Brukes blant annet ved
+    omregning av pensjonspoeng.}
+  \item{omregnings_faktor}{\code{numeric}. Forholdstall mellom nytt og gammelt grunnbeløp ved
+    G-justering. Benyttes til å omregne ytelser når G endres. For mai 2025
+    er faktoren 1.049440 (4,94 \% økning).}
 }
 }
 \source{
-NAV, "Grunnbeløpet i folketrygden (G)" table:
+NAV, «Grunnbeløpet i folketrygden (G)»:
 \url{https://www.nav.no/grunnbelopet}
 }
 \usage{
 grunnbelop_long
 }
 \description{
-Monthly time series of the Norwegian National Insurance basic amount
-(grunnbeløpet i folketrygden, "G"), based on NAV's published table of
-historical G values. The dataset includes the annual basic amount in effect,
-its monthly equivalent, the annual average amount, and the conversion factor
-(omregningsfaktor) used when G is adjusted.
+Grunnbeløpet (G) er en referansestørrelse som brukes til å beregne en rekke
+av NAVs ytelser, blant annet sykepenger, dagpenger, uføretrygd, alderspensjon
+og arbeidsavklaringspenger. Det vedtas av Stortinget hvert år som en del av
+trygdeoppgjøret, og justeres normalt \strong{1. mai} hvert år.
+
+Datasettet er en månedlig tidsserie fra 1967 og frem til i dag, basert på
+NAVs publiserte tabell over historiske G-verdier. Fordi G justeres 1. mai,
+vil de fleste kalenderår inneholde to ulike G-verdier: én for januar–april
+og én for mai–desember.
+
+\strong{Eksempler på bruk av G:}
+\itemize{
+  \item Sykepenger beregnes opp til 6 G
+  \item Minstegrensen for dagpenger er 1,5 G siste 12 måneder (eller 3 G siste 36 måneder)
+  \item Grunnpensjon i alderspensjon er 1 G per år
+  \item Uføretrygd beregnes som andel av tidligere inntekt, maks 6 G
+}
+
+\strong{Historiske milepæler:}
+\itemize{
+  \item 1967: 5 400 kr (første G)
+  \item 1990: 34 000 kr
+  \item 2000: 49 090 kr
+  \item 2010: 75 641 kr
+  \item 2020: 101 351 kr
+  \item 2025: 130 160 kr (gjeldende fra 1. mai 2025)
+}
 }
 \keyword{datasets}
