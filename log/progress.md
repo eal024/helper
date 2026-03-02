@@ -5,6 +5,25 @@ Leses ved starten av hver økt for å gjenopprette kontekst.
 
 ---
 
+## 2026-03-02 — Ny funksjon: norwegian_to_ascii()
+
+**Hva ble gjort:**
+- Lagt til `norwegian_to_ascii()` — konverterer æøå til ae/o/a med kun base R
+- Bruker `gsub()` med Unicode-kodepoints (`\uXXXX`) for å unngå encoding-problemer i kildefilen
+- Eksportert i `NAMESPACE`
+- Roxygen2-dokumentasjon i `R/norwegian_to_ascii.R` og `man/norwegian_to_ascii.Rd`
+
+**Filer påvirket:**
+- `R/norwegian_to_ascii.R` — opprettet
+- `man/norwegian_to_ascii.Rd` — opprettet
+- `NAMESPACE` — lagt til eksport
+
+**Neste steg:**
+- Oppdater `DESCRIPTION` med riktig tittel, forfatter og lisens
+- Vurder om `log/` skal legges til `.Rbuildignore`
+
+---
+
 ## 2026-03-02 — Dokumentasjon av grunnbelop_long
 
 **Hva ble gjort:**
