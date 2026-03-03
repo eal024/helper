@@ -6,7 +6,7 @@ En R-pakke med hjelpefunksjoner og datasett for norsk statistikkarbeid.
 
 ```r
 # Installer fra GitHub (krever devtools)
-devtools::install_github("eirik/helper")
+devtools::install_github("eal024/helper")
 
 # Eller installer lokalt fra kildekoden
 devtools::install()
