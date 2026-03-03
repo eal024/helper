@@ -2,7 +2,7 @@ Package: helper
 Title: Helper Functions for Norwegian Statistical Work
 Version: 0.0.0.9000
 Authors@R:
-    person("Eirik", "Loe", , "eirik@example.com", role = c("aut", "cre"))
+    person("Eirik", "Lamoey", , "e.lamoey@gmail.com", role = c("aut", "cre"))
 Description: A collection of utility functions and datasets for Norwegian
     statistical work, including a monthly time series of the Norwegian
     National Insurance basic amount (grunnbeløpet, G).
