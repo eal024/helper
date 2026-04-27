@@ -5,6 +5,75 @@ Leses ved starten av hver økt for å gjenopprette kontekst.
 
 ---
 
+## 2026-04-27 — Pakkeoppdatering: angev98 ferdigstilt
+
+**Hva ble gjort:**
+- Lagt til `man/angev98.Rd` manuelt (devtools/roxygen2 fortsatt ikke
+  installert — fulgt samme konvensjon som `grunnbelop_long.Rd`)
+- Oppdatert `README.md` med eget avsnitt om `angev98` (kort beskrivelse,
+  eksempelkode for OLS og first-stage, tabell over sentrale variabler,
+  kildehenvisning til AE 1998)
+- Utvidet `.Rbuildignore` med `^data-raw$`, `^log$` og `^\.claude$` slik
+  at kildedata, fremdriftslogg og Claude-konfig ikke følger med i
+  bygget pakke
+- NAMESPACE uendret — datasett trenger ikke eksport (`LazyData: true`)
+- Lagt til kort 2SLS-eksempel i `R/angev98.R`, `man/angev98.Rd`
+  og `README.md`: first stage → `predict()` → second stage med
+  `morekids_hat`, kun base R, med kort merknad om at manuelle
+  2SLS-standardfeil er feil
+- Lagt til ny regel i `CLAUDE.md`: pakken skal kun bruke base R, og
+  eksempler i dokumentasjon skal ikke bruke eksterne pakker
+  (`dplyr`, `AER`, `fixest`, osv.)
+
+**Filer påvirket:**
+- `man/angev98.Rd` — ny
+- `README.md` — utvidet
+- `.Rbuildignore` — utvidet
+
+**Neste steg:**
+- Kjør `devtools::document()` og `devtools::check()` når devtools er
+  installert, for å verifisere at den manuelle `.Rd`-filen samsvarer
+  med roxygen-kommentarene
+- Vurder om `angev98` skal subsettes til kun seminarvariabler
+  (8,7 MB er fortsatt på den store siden for en helper-pakke)
+- Bygg ut flere hjelpefunksjoner
+
+---
+
+**Hva ble gjort:**
+- Lagt til `angev98` — fertilitet og kvinners arbeidstilbud, US Census 1980
+  PUMS (5 %), N = 394 840, 49 variabler
+- Hentet fra ECON5106-kursrepoet (`/home/eirik/Documents/econ5106/data/`)
+- Lagret som `data/angev98.rda` med `xz`-komprimering (8,7 MB)
+- Roxygen2-dokumentasjon i `R/angev98.R` med variabelgruppering
+  (utfall, fertilitet, instrumenter, kovariater, husholdsinntekt, far)
+- Reproduserbar pipeline i `data-raw/`:
+  - `angev98.dta` (kildefil, kopiert)
+  - `prep_angev98.R` (haven::read_dta + base::save)
+  - `angev98_dokumentasjon.md` (utvidet kildedokumentasjon: tabeller over
+    alle variabler, AE-funn, bruksmønster)
+
+**Bruksområde:**
+- Klassisk eksempel for IV-undervisning: estimere kausaleffekt av
+  fertilitet på arbeidstilbud
+- Brukes i ECON5106 / ECON 4137 ved UiO
+
+**Filer påvirket:**
+- `data/angev98.rda` — ny
+- `R/angev98.R` — ny
+- `data-raw/angev98.dta`, `data-raw/prep_angev98.R`,
+  `data-raw/angev98_dokumentasjon.md` — ny
+- `CLAUDE.md` — datasett-tabell oppdatert
+
+**Neste steg:**
+- `devtools::document()` ikke kjørt — må kjøres for å regenerere
+  `man/angev98.Rd` og `NAMESPACE` (eller manuell `.Rd` per konvensjon i
+  pakken inntil devtools er installert)
+- Vurder om datasettet skal subsettes til kun seminarvariabler
+  (8,7 MB er på den store siden for en helper-pakke)
+
+---
+
 ## 2026-03-02 — Ny funksjon: norwegian_to_ascii()
 
 **Hva ble gjort:**

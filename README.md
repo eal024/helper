@@ -40,6 +40,36 @@ head(grunnbelop_long)
 
 **Kilde:** NAV — [Grunnbeløpet i folketrygden (G)](https://www.nav.no/grunnbelopet)
 
+### `angev98`
+
+Replikasjonsdatasett fra Angrist & Evans (1998), *"Children and Their Parents' Labor Supply: Evidence from Exogenous Variation in Family Size"*, American Economic Review 88(3): 450–477.
+
+Utvalget er trukket fra US Census 1980 (Public Use Micro Sample, 5 %): gifte mødre i alderen 21–35 år med minst to barn (N = 394 840, 49 variabler). Brukes klassisk til IV-estimering av kausaleffekten av fertilitet på kvinners arbeidstilbud.
+
+```r
+data(angev98)
+
+# OLS (biased)
+lm(workedm ~ morekids, data = angev98)
+
+# IV (manuell 2SLS): samesex som instrument for morekids
+fs <- lm(morekids ~ samesex + agem + boy1st + boy2nd, data = angev98)
+angev98$morekids_hat <- predict(fs)
+lm(workedm ~ morekids_hat + agem + boy1st + boy2nd, data = angev98)
+# NB: SE-ene fra second stage er feil ved manuell 2SLS.
+```
+
+**Sentrale variabler:**
+
+| Gruppe       | Variabler                                                       |
+|--------------|-----------------------------------------------------------------|
+| Utfall       | `workedm`, `weeksm`, `hourswm`, `incomem`                       |
+| Endogen      | `morekids`, `kidcount`                                          |
+| Instrument   | `samesex`, `twins2`, `multi2nd`, `boys2`, `girls2`              |
+| Kovariater   | `agem`, `agefstm`, `boy1st`, `boy2nd`, `blackm`, `hispm`, …     |
+
+**Kilde:** Angrist & Evans (1998), [JSTOR 116844](https://www.jstor.org/stable/116844). Originaldata: US Census Bureau, 1980 PUMS 5 %.
+
 ## Utvikling
 
 ```r

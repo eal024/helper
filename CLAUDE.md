@@ -42,6 +42,7 @@ Loggen lagrer ikke filer (de er trygge i git) — den lagrer *kontekst*.
 - **Jobb alltid innenfor prosjektets rotmappe** — ikke operér utenfor `/home/eirik/Documents/helper/`
 - **Bruk `./legacy/` for arkivering** — gamle versjoner flyttes hit, ikke slettes
 - **Kopier, ikke flytt** — originalen skal alltid være trygg før endringer gjøres
+- **Kun base R** — pakken skal ha så få avhengigheter som mulig. Eksempler i dokumentasjon (roxygen2 `@examples`, `.Rd`, README) skal kun bruke base R. Ikke bruk pakker som `dplyr`, `AER`, `fixest`, `data.table` osv. i eksempler. `Imports`/`Suggests` legges kun til når det er strengt nødvendig.
 
 ## Konvensjoner
 
@@ -64,6 +65,7 @@ devtools::install()    # Installer pakken lokalt
 | Navn              | Beskrivelse                                              |
 |-------------------|----------------------------------------------------------|
 | `grunnbelop_long` | Månedlig tidsserie for grunnbeløpet i folketrygden (G)  |
+| `angev98`         | Angrist & Evans (1998), fertilitet og kvinners arbeidstilbud (US Census 1980 PUMS, N=394 840) |
 
 ## Avhengigheter
 
