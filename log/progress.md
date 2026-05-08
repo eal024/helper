@@ -5,6 +5,83 @@ Leses ved starten av hver økt for å gjenopprette kontekst.
 
 ---
 
+## 2026-05-08 — Ny funksjon: `struktur()` lagt til pakken
+
+**Hva ble gjort:**
+- Hentet `struktur()` fra `phd-data/scripts/util/struktur.R` og lagt
+  inn i pakken som `R/struktur.R` med roxygen2-dokumentasjon
+- Lagt til `man/struktur.Rd` manuelt (samme konvensjon som
+  `norwegian_to_ascii.Rd` og `angev98.Rd` siden devtools/roxygen2
+  fortsatt ikke er installert lokalt)
+- Eksportert `struktur` i `NAMESPACE`
+- Oppdatert `README.md` med eget avsnitt "Funksjoner" som dokumenterer
+  både `norwegian_to_ascii()` og `struktur()` med korte eksempler
+- Beholdt original signatur fra kildeprosjektet:
+  `struktur(df, meta = FALSE)` — `meta = FALSE` som default
+- Funksjonen bruker kun base R (`vapply`, `class`, `paste`, `nrow`,
+  `ncol`, `names`, `sum`, `is.na`, `length`, `unique`, `data.frame`,
+  `cat`, `sprintf`, `stopifnot`) — i tråd med base R-regelen
+- Kildereferanse i roxygen-headeren via `@source` peker til
+  `phd-data/scripts/util/struktur.R`
+
+**Filer påvirket:**
+- `R/struktur.R` — ny
+- `man/struktur.Rd` — ny
+- `NAMESPACE` — `export(struktur)` lagt til
+- `README.md` — nytt "Funksjoner"-avsnitt
+
+**Pakketilstand:**
+- Versjon: 0.0.0.9000
+- Eksporterte funksjoner: `norwegian_to_ascii()`, `struktur()`
+- Datasett: `grunnbelop_long`, `angev98`
+- Avhengigheter: kun base R (R >= 3.5)
+
+**Neste steg:**
+- Når devtools er installert: kjør `devtools::document()` og
+  `devtools::check()` for å verifisere at den manuelle `.Rd`-filen
+  samsvarer med roxygen-kommentarene
+- Vurder om `meta = TRUE` skal være default — gir litt mer info, men
+  fortsatt aggregater (trygt)
+- Commit endringene
+
+---
+
+## 2026-05-08 — TODO: hent inn `struktur()` fra phd-data (fullført)
+
+**Hva:** Funksjonen `struktur()` er skrevet i `phd-data`-prosjektet og bør flyttes inn i `helper`-pakken når den modnes.
+
+**Plassering i kildeprosjektet:**
+`/home/eirik/Documents/phd-data/scripts/util/struktur.R`
+
+**Hva funksjonen gjør:**
+Tar inn en `data.frame` og returnerer kun *strukturen* — kolonnenavn og R-klasse per kolonne, samt `nrow × ncol` (dimensjon). Med `meta = TRUE` legges det også på `n_unique` og `n_na` per kolonne.
+
+**Den viser ALDRI faktiske observasjonsverdier.** Det er hele poenget: man får et trygt strukturuttak fra et følsomt datasett (f.eks. registerdata i NAVs sikre område) som kan kopieres ut og deles uten lekkasjefare.
+
+**Signatur:**
+```r
+struktur(df, meta = FALSE)
+```
+
+**Eksempel:**
+```r
+struktur(arena)
+# Dimensjon: 5000000 rader x 7 kolonner
+#                    variabel      type
+# 1                fk_person1   integer
+# 2 sluttdato_statistikkmaaned character
+# ...
+```
+
+**Hvorfor base R-vennlig:** Funksjonen bruker kun `vapply`, `class`, `paste`, `nrow`, `ncol`, `names`, `sum`, `is.na`, `length`, `unique`, `data.frame`, `cat`, `sprintf`, `stopifnot` — passer dermed pakkens base-R-regel uten endringer.
+
+**Neste steg:**
+- Når funksjonen har vært i bruk en stund og signaturen virker stabil: kopier til `R/struktur.R` med roxygen2-dokumentasjon, legg til `man/struktur.Rd` (manuelt eller via devtools), eksportér i `NAMESPACE`
+- Vurder om `meta = TRUE` skal være default — gir litt mer info, men er fortsatt trygt (aggregater, ikke verdier)
+- Kildereferanse i roxygen-headeren: `phd-data/scripts/util/struktur.R`
+
+---
+
 ## 2026-04-27 — Pakkeoppdatering: angev98 ferdigstilt + base R-regel
 
 **Hva ble gjort:**

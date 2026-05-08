@@ -70,6 +70,33 @@ lm(workedm ~ morekids_hat + agem + boy1st + boy2nd, data = angev98)
 
 **Kilde:** Angrist & Evans (1998), [JSTOR 116844](https://www.jstor.org/stable/116844). Originaldata: US Census Bureau, 1980 PUMS 5 %.
 
+## Funksjoner
+
+### `norwegian_to_ascii()`
+
+Konverterer norske særtegn (`æøå`) til ASCII-ekvivalenter (`ae`/`o`/`a`). Nyttig for systemer som ikke håndterer UTF-8.
+
+```r
+norwegian_to_ascii("Ålesund og Ærverdige Ørn")
+# [1] "Alesund og Aerverdige Orn"
+```
+
+### `struktur()`
+
+Tar ut dimensjonen til et datasett (kolonnenavn, R-klasser og `nrow x ncol`) uten å vise faktiske tall.
+
+```r
+struktur(iris)
+# Dimensjon: 150 rader x 5 kolonner
+#       variabel    type
+# 1 Sepal.Length numeric
+# 2  Sepal.Width numeric
+# ...
+
+# Med meta = TRUE legges n_unique og n_na til
+struktur(mtcars, meta = TRUE)
+```
+
 ## Utvikling
 
 ```r
