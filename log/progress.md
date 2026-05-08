@@ -21,8 +21,17 @@ Leses ved starten av hver økt for å gjenopprette kontekst.
 - Funksjonen bruker kun base R (`vapply`, `class`, `paste`, `nrow`,
   `ncol`, `names`, `sum`, `is.na`, `length`, `unique`, `data.frame`,
   `cat`, `sprintf`, `stopifnot`) — i tråd med base R-regelen
-- Kildereferanse i roxygen-headeren via `@source` peker til
-  `phd-data/scripts/util/struktur.R`
+
+**Dokumentasjonsbeslutninger (etter brukerinnspill):**
+- Første utkast hadde tekst om at funksjonen var trygg å bruke i
+  sensitive miljøer (NAVs sikre område, "skyggedata") — fjernet etter
+  bruker sa: "ikke skriv om at den er til å lage skyggedata utenfor
+  S-området"
+- Deretter strammet ytterligere inn til kun: "Tar ut dimensjonen til
+  et datasett (kolonnenavn, R-klasser og `nrow x ncol`) uten å vise
+  faktiske tall." Gjelder både `R/struktur.R`, `man/struktur.Rd` og
+  README. `@source`-feltet (peker til `phd-data`) ble også fjernet
+  fra roxygen-headeren
 
 **Filer påvirket:**
 - `R/struktur.R` — ny
@@ -36,17 +45,19 @@ Leses ved starten av hver økt for å gjenopprette kontekst.
 - Datasett: `grunnbelop_long`, `angev98`
 - Avhengigheter: kun base R (R >= 3.5)
 
+**Git:**
+- Commit `56913e0` "legger til struktur() — viser dimensjon på en
+  data.frame" pushet til `origin/main`
+
 **Neste steg:**
 - Når devtools er installert: kjør `devtools::document()` og
   `devtools::check()` for å verifisere at den manuelle `.Rd`-filen
   samsvarer med roxygen-kommentarene
-- Vurder om `meta = TRUE` skal være default — gir litt mer info, men
-  fortsatt aggregater (trygt)
-- Commit endringene
+- Vurder om `meta = TRUE` skal være default — gir litt mer info,
+  men brukeren har foreløpig ikke tatt stilling til dette
+- Bygg ut flere hjelpefunksjoner ved behov
 
 ---
-
-## 2026-05-08 — TODO: hent inn `struktur()` fra phd-data (fullført)
 
 **Hva:** Funksjonen `struktur()` er skrevet i `phd-data`-prosjektet og bør flyttes inn i `helper`-pakken når den modnes.
 
