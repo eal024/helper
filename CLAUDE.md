@@ -66,6 +66,10 @@ devtools::install()    # Installer pakken lokalt
 |-------------------|----------------------------------------------------------|
 | `grunnbelop_long` | Månedlig tidsserie for grunnbeløpet i folketrygden (G)  |
 | `angev98`         | Angrist & Evans (1998), fertilitet og kvinners arbeidstilbud (US Census 1980 PUMS, N=394 840) |
+| `nace_hovednaring` | NACE-SN07 (to første sifre) → SSBs 15 hovednæringer, 99 rader |
+| `styrk_yrkeskat`  | STYRK-08 (første siffer) → 10 yrkeskategorier, 10 rader   |
+| `styrk_noa`       | STYRK-08 (fire sifre) → 47 NOA-grupper (Stami), 406 rader |
+| `sektor_kode`     | Institusjonell sektorkode → OFF/PRIV og STAT/KOMM/PRIV, 6 rader |
 
 ## Avhengigheter
 

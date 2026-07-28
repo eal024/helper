@@ -49,7 +49,7 @@
 #'
 #' **Merk om «P»-prefikset:** i Aa-registeret ligger yrkeskoden som
 #' `styrk08_kode` med en bokstav `"P"` foran. Første siffer hentes derfor med
-#' `substr(styrk08_kode, 2, 1)`, ikke `substr(styrk08_kode, 1, 1)`.
+#' `substr(styrk08_kode, 2, 2)`, ikke `substr(styrk08_kode, 1, 1)`.
 #'
 #' @format Et `data.frame` med 10 rader og 2 kolonner:
 #' \describe{

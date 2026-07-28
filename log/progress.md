@@ -5,6 +5,42 @@ Leses ved starten av hver økt for å gjenopprette kontekst.
 
 ---
 
+## 2026-07-28 (2) — Rettet `substr`-feil i «P»-prefiks-merknaden + CLAUDE.md-tabell
+
+**Utløser:** Gjennomlesing av loggen i `phd-data` og dokumentasjonen her etter at
+kodeverk-datasettene ble lagt til tidligere samme dag.
+
+**Feil 1 — `substr(styrk08_kode, 2, 1)` returnerer tom streng.** Merknaden om
+«P»-prefikset i Aa-registerets yrkeskode ba leseren hente første siffer med
+`substr(x, 2, 1)`. `substr()` tar `(x, start, stop)`, så `start = 2, stop = 1`
+gir `""` — ikke sifferet. Riktig er `substr(x, 2, 2)`. Verifisert:
+`substr("P3112", 2, 2)` gir `"3"`.
+
+Feilen sto tre steder og er rettet i alle:
+- `R/ssb_kodeverk.R:52`
+- `man/styrk_yrkeskat.Rd:31`
+- `README.md:98`
+
+Dette er en *stille* feil av samme type som ledende null-fella: et oppslag på
+`""` gir `NA` for alle rader, ikke en feilmelding.
+
+**Feil 2 — `CLAUDE.md` sin datasett-tabell var ikke oppdatert.** Den listet
+fortsatt bare `grunnbelop_long` og `angev98`. De fire kodeverk-datasettene er
+lagt inn.
+
+**Validering:** `tools::checkRd("man/styrk_yrkeskat.Rd")` gir kun
+non-ASCII-notiser, samme som før endringen.
+
+**Filer påvirket:** `R/ssb_kodeverk.R`, `man/styrk_yrkeskat.Rd`, `README.md`,
+`CLAUDE.md`, `log/progress.md`
+
+**Fortsatt åpent (uendret fra forrige økt):** `devtools::document()` er ikke
+kjørt — de manuelle `.Rd`-filene er ikke verifisert mot roxygen-kildene.
+Sektorkodenes offisielle navn er bevisst utelatt, og `3900` under STAT bør
+dobbeltsjekkes mot SSB Klass 39.
+
+---
+
 ## 2026-07-28 — Fire nye datasett: SSB-kodeverk fra Aa-registeret
 
 **Bakgrunn:** Bruker fant et SAS-program fra Nav (kjørt mot `aareg.nevner_ifk_*`,

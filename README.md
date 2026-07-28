@@ -95,7 +95,7 @@ nace_hovednaring$hovednaring[match(substr(koder, 1, 2), nace_hovednaring$naring2
 **Tre ting å være klar over:**
 
 - **Ledende null.** Nøklene er `character`. Er næringskoden lagret numerisk, faller den ledende nullen bort, og `substr(kode, 1, 2)` gir `"12"` i stedet for `"01"`. Feilen er stille og rammer alle næringer 01–09. Sjekk `table(nchar(kode))` først.
-- **«P»-prefikset.** I Aa-registeret ligger yrkeskoden som `styrk08_kode` med en `"P"` foran — bruk `substr(styrk08_kode, 2, 1)` for første siffer.
+- **«P»-prefikset.** I Aa-registeret ligger yrkeskoden som `styrk08_kode` med en `"P"` foran — bruk `substr(styrk08_kode, 2, 2)` for første siffer.
 - **Tidsgyldighet.** NACE-SN07 gjelder fra 2009, `styrk_noa` kun fra 2014 (STYRK→STYRK-08-bruddet endret siffer 2–4), `sektor_kode` kun fra 2015.
 
 `sektor_kode` inneholder bare de offentlige kodene — bruk `merge(all.x = TRUE)` og sett `NA` til `"PRIV"`.

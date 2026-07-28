@@ -28,7 +28,7 @@ sifrene 2–4 som brøt ved overgangen — se \link{styrk_noa}.
 
 \strong{Merk om «P»-prefikset:} i Aa-registeret ligger yrkeskoden som
 \code{styrk08_kode} med en bokstav \code{"P"} foran. Første siffer hentes
-derfor med \code{substr(styrk08_kode, 2, 1)}, ikke
+derfor med \code{substr(styrk08_kode, 2, 2)}, ikke
 \code{substr(styrk08_kode, 1, 1)}.
 }
 \examples{
