@@ -70,6 +70,38 @@ lm(workedm ~ morekids_hat + agem + boy1st + boy2nd, data = angev98)
 
 **Kilde:** Angrist & Evans (1998), [JSTOR 116844](https://www.jstor.org/stable/116844). Originaldata: US Census Bureau, 1980 PUMS 5 %.
 
+### SSB-kodeverk: `nace_hovednaring`, `styrk_yrkeskat`, `styrk_noa`, `sektor_kode`
+
+Fire oppslagstabeller for SSB-kodeverk brukt i Aa-registeret. Alle er *utvidet* — én rad per kode, ikke intervaller — så de kan brukes direkte med `merge()` uten intervall-logikk.
+
+| Datasett | Fra | Til | Rader |
+|---|---|---|---|
+| `nace_hovednaring` | NACE-SN07, to første sifre | SSBs 15 hovednæringer | 99 |
+| `styrk_yrkeskat` | STYRK-08, første siffer | 10 yrkeskategorier | 10 |
+| `styrk_noa` | STYRK-08, fire sifre | 47 NOA-grupper (Stami) | 406 |
+| `sektor_kode` | Institusjonell sektorkode | OFF/PRIV og STAT/KOMM/PRIV | 6 |
+
+```r
+data(nace_hovednaring)
+
+# Femsifret NACE-kode -> hovednaering
+koder <- c("47110", "01110", "86101")
+nace_hovednaring$hovednaring[match(substr(koder, 1, 2), nace_hovednaring$naring2)]
+# [1] "Varehandel; reparasjon av motorvogner"
+# [2] "Jordbruk, skogbruk og fiske"
+# [3] "Helse- og sosialtjenester"
+```
+
+**Tre ting å være klar over:**
+
+- **Ledende null.** Nøklene er `character`. Er næringskoden lagret numerisk, faller den ledende nullen bort, og `substr(kode, 1, 2)` gir `"12"` i stedet for `"01"`. Feilen er stille og rammer alle næringer 01–09. Sjekk `table(nchar(kode))` først.
+- **«P»-prefikset.** I Aa-registeret ligger yrkeskoden som `styrk08_kode` med en `"P"` foran — bruk `substr(styrk08_kode, 2, 1)` for første siffer.
+- **Tidsgyldighet.** NACE-SN07 gjelder fra 2009, `styrk_noa` kun fra 2014 (STYRK→STYRK-08-bruddet endret siffer 2–4), `sektor_kode` kun fra 2015.
+
+`sektor_kode` inneholder bare de offentlige kodene — bruk `merge(all.x = TRUE)` og sett `NA` til `"PRIV"`.
+
+**Kilde:** [NACE-SN07](https://www.ssb.no/virksomheter-foretak-og-regnskap/nace), [STYRK-08](https://www.ssb.no/arbeid-og-lonn/artikler-og-publikasjoner/standard-for-yrkesklassifisering-styrk-08), [SSB Klass 39](https://www.ssb.no/klass/klassifikasjoner/39). Grupperingene er hentet fra Navs SAS-program mot Aa-registeret.
+
 ## Funksjoner
 
 ### `norwegian_to_ascii()`

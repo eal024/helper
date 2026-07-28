@@ -5,6 +5,59 @@ Leses ved starten av hver økt for å gjenopprette kontekst.
 
 ---
 
+## 2026-07-28 — Fire nye datasett: SSB-kodeverk fra Aa-registeret
+
+**Bakgrunn:** Bruker fant et SAS-program fra Nav (kjørt mot `aareg.nevner_ifk_*`,
+aktive arbeidsforhold) som definerer fire kodeverk-grupperinger. Programmet ble
+sendt på e-post; mappingene er portet til R her, slik at de er tilgjengelige
+uavhengig av om selve Aa-registerdataene er det.
+
+**Hva ble gjort:**
+- `data-raw/prep_ssb_kodeverk.R` — bygger fire datasett fra intervall-/liste-
+  definisjonene i SAS-kilden. Kun base R
+- `R/ssb_kodeverk.R` — roxygen2-dokumentasjon for alle fire
+- `man/{nace_hovednaring,styrk_yrkeskat,styrk_noa,sektor_kode}.Rd` — skrevet
+  manuelt, samme konvensjon som tidligere (devtools/roxygen2 er fortsatt ikke
+  installert lokalt). Validert med `tools::checkRd()` — kun non-ASCII-notiser,
+  samme som eksisterende `.Rd`-filer
+- `README.md` — nytt avsnitt under «Datasett»
+
+**Datasettene:**
+
+| datasett | fra | til | rader |
+|---|---|---|---|
+| `nace_hovednaring` | NACE-SN07, to første sifre | 15 hovednæringer + Ukjent | 99 |
+| `styrk_yrkeskat` | STYRK-08, første siffer | 10 yrkeskategorier | 10 |
+| `styrk_noa` | STYRK-08, fire sifre | 47 NOA-grupper (Stami) | 406 |
+| `sektor_kode` | `sekt_2014_bf` | OFF/PRIV, STAT/KOMM/PRIV | 6 |
+
+**Designvalg — utvidede tabeller, ikke intervaller.** SAS-kilden bruker
+`if '01'<=naring2<='03'`. Tabellene her er ekspandert til én rad per kode, slik
+at oppslag skjer med `match()`/`merge()` uten intervall-logikk. `nace_hovednaring`
+dekker alle koder 01–99, så et oppslag alltid treffer; koder som ikke finnes i
+NACE-SN07 får `"Ukjent"`.
+
+**To feil i SAS-kilden, rettet i portingen:**
+1. `else noa=yrke;` viser til en variabel som aldri defineres i data-steget
+   (kun `yrke1` og `yrke4` finnes). Her: kode uten NOA-gruppe gir `NA`
+2. Betingelsen for `'Profesjonell kunstner'` sto to ganger med identisk
+   kodeliste — den andre var død kode. Deduplisert
+
+**Snublestein bevart fra kilden:** kodene 110, 210 og 310 sto tresifret i SAS
+fordi de ble sammenliknet numerisk mot en tekstvariabel (ledende null falt bort
+i implisitt konvertering). De er nullpolstret til `"0110"`, `"0210"`, `"0310"`.
+
+**Bevisst utelatt:** offisielle navn på sektorkodene. De er ikke verifisert mot
+SSB Klass 39, og en gjetning ville forplantet seg. Merk at SAS-kilden plasserer
+`3900` under STAT — verdt å dobbeltsjekke mot Klass 39, siden koden kan være
+kommunalt eide selskaper.
+
+**Neste steg:** kjør `devtools::document()` i RStudio for å regenerere `man/`
+og `NAMESPACE` fra roxygen-kildene, og bekreft at de manuelle `.Rd`-filene
+stemmer overens med det roxygen2 genererer.
+
+---
+
 ## 2026-05-08 — Ny funksjon: `struktur()` lagt til pakken
 
 **Hva ble gjort:**
