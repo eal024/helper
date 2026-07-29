@@ -5,6 +5,68 @@ Leses ved starten av hver økt for å gjenopprette kontekst.
 
 ---
 
+## 2026-07-29 — `man/` regenerert med roxygen2; manuelle `.Rd`-filer verifisert
+
+**Utløser:** Det åpne punktet som har fulgt loggen siden 2026-03-02 — `.Rd`-filene
+var skrevet for hånd fordi roxygen2 ikke var installert, og det var aldri
+verifisert at de stemte med roxygen-kildene.
+
+**roxygen2 installert, `devtools` bevisst ikke.** `devtools::document()` kaller
+bare `roxygen2::roxygenise()`. roxygen2 alene holder, og drar inn langt færre
+pakker. Begge er rene *utviklingsverktøy* i det lokale R-biblioteket — de står
+ikke i `Imports`/`Suggests`, så pakkens avhengigheter er fortsatt kun
+`R (>= 3.5)`.
+
+**Hovedfunn — de håndskrevne `.Rd`-filene var innholdsmessig korrekte.** Alle
+åtte ble regenerert. `git diff --ignore-all-space` viser at så godt som alt er
+linjeombrekking. Kun to reelle forbedringer fra roxygen:
+1. `\preformatted{}` pakkes nå i `\if{html}{\out{<div class="sourceCode">}}` —
+   riktig kodeblokk-rendering i HTML-hjelp
+2. `\code{nrow x ncol}` → `\verb{nrow x ncol}` i `struktur.Rd` — korrekt, siden
+   det ikke er R-kode
+
+`NAMESPACE` uendret bortsett fra en tom linje; begge eksportene står.
+`substr`-rettelsen fra forrige økt fulgte riktig gjennom fra `R/ssb_kodeverk.R`.
+
+**Ny WARNING fanget og fikset — `LazyDataCompression`.** `R CMD check` ga:
+«LazyData DB of 14.0 MB without LazyDataCompression set». `.rda`-filene er
+xz-lagret, men lazy-load-DB-en ble bygget med gzip.
+
+- `xz` er **ikke brukbart her**: R-prosessen ble drept av minnepress under
+  komprimering av `angev98` (394 840 × 49). Reproduserte det tre ganger
+- `bzip2` valgt: 21 sekunder, 531 MB toppminne, og installert størrelse går fra
+  **14,1 MB til 8,7 MB**. WARNING borte
+
+**`.Rbuildignore`:** `^legacy$` lagt til. Uten den ville arkivmappa blitt pakket
+med i tarballen. Verifisert med `tar tzf` — null treff.
+
+**Verifisering.** `R CMD check` fullfører ikke på denne maskinen — prosessen blir
+drept etter installasjonssteget (~5,3 GB av 7,8 GB er opptatt av annet). Den
+*første* fulle checken gikk gjennom og ga kun `LazyData`-WARNING pluss
+størrelses-INFO, begge nå løst. Utover det er verifisert direkte:
+- `tools::checkRd()` på alle åtte: ingen problemer utover non-ASCII-notiser
+  (som før — DESCRIPTION har `Encoding: UTF-8`)
+- alle `@examples` kjørt mot installert pakke: alle OK
+- README-eksemplet gir nøyaktig dokumentert output
+- `substr("P3112", 2, 2)` → `"3"` → «Høyskoleyrker»
+- dimensjoner: `nace_hovednaring` 99×2, `styrk_yrkeskat` 10×2, `styrk_noa` 406×2,
+  `sektor_kode` 6×3, `grunnbelop_long` 304×5, `angev98` 394840×49
+
+**Arkivering:** de håndskrevne `.Rd`-filene er kopiert til
+`legacy/2026-07-28_man_manuell/` før regenerering.
+
+**Filer påvirket:** alle åtte `man/*.Rd`, `NAMESPACE`, `DESCRIPTION`
+(`LazyDataCompression: bzip2`, `RoxygenNote` → `Config/roxygen2/version: 8.0.0`),
+`.Rbuildignore`, `CLAUDE.md`, `legacy/2026-07-28_man_manuell/` (ny),
+`log/progress.md`
+
+**Fortsatt åpent:** sektorkodenes offisielle navn er ikke verifisert mot SSB
+Klass 39 — `3900` ligger under STAT i SAS-kilden, men kan være kommunalt eide
+selskaper. `angev98` er fortsatt 8,7 MB; subsetting til seminarvariabler er ikke
+vurdert ferdig.
+
+---
+
 ## 2026-07-28 (2) — Rettet `substr`-feil i «P»-prefiks-merknaden + CLAUDE.md-tabell
 
 **Utløser:** Gjennomlesing av loggen i `phd-data` og dokumentasjonen her etter at

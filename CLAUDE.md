@@ -47,18 +47,30 @@ Loggen lagrer ikke filer (de er trygge i git) — den lagrer *kontekst*.
 ## Konvensjoner
 
 - **Språk:** Variabelnavn og datasett bruker norske navn (f.eks. `grunnbelop_per_ar`, `omregnings_faktor`). Dokumentasjon skrives på engelsk.
-- **Dokumentasjon:** Bruk roxygen2-kommentarer (`#'`) i R-filene. Kjør `devtools::document()` for å regenerere `man/` og `NAMESPACE`.
+- **Dokumentasjon:** Bruk roxygen2-kommentarer (`#'`) i R-filene. Kjør `roxygen2::roxygenise(".")` for å regenerere `man/` og `NAMESPACE`. `man/`-filene er nå roxygen-genererte — rediger `.Rd` aldri direkte.
 - **Data:** Datasett lagres som `.rda` i `data/` og dokumenteres i en tilhørende `.R`-fil i `R/`.
 - **snake_case:** Bruk snake_case for alle funksjons- og variabelnavn.
 
 ## Vanlige kommandoer
 
+`devtools` er **ikke** installert lokalt, og skal ikke installeres — den drar inn
+et stort avhengighetstre. `roxygen2` er installert, og gjør jobben alene:
+
 ```r
-devtools::document()   # Regenerer dokumentasjon og NAMESPACE
-devtools::load_all()   # Last inn pakken lokalt
-devtools::check()      # Kjør R CMD CHECK
-devtools::install()    # Installer pakken lokalt
+roxygen2::roxygenise(".")   # Regenerer man/ og NAMESPACE (= devtools::document())
 ```
+
+Bygg og kontroll gjøres med R-ens innebygde verktøy, uten ekstra pakker:
+
+```bash
+R CMD build .                          # Bygg tarball
+R CMD INSTALL -l <lib> helper_*.tar.gz # Installer
+R CMD check --no-manual helper_*.tar.gz
+```
+
+Merk: `R CMD check` blir drept av minnepress på denne maskinen etter
+installasjonssteget. Installasjonen i seg selv går rent, og `tools::checkRd()`
++ kjøring av `@examples` dekker det som er viktig.
 
 ## Datasett
 

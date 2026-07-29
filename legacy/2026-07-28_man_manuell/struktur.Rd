@@ -14,12 +14,12 @@ kolonne. Default \code{FALSE}.}
 }
 \value{
 En \code{data.frame} med kolonnene \code{variabel} og \code{type}, og
-eventuelt \code{n_unique} og \code{n_na} hvis \code{meta = TRUE}.
-Dimensjon (\verb{nrow x ncol}) skrives ut som en melding via \code{cat()}.
+  eventuelt \code{n_unique} og \code{n_na} hvis \code{meta = TRUE}.
+  Dimensjon (\code{nrow x ncol}) skrives ut som en melding via \code{cat()}.
 }
 \description{
 Tar ut dimensjonen til et datasett (kolonnenavn, R-klasser og
-\verb{nrow x ncol}) uten å vise faktiske tall.
+\code{nrow x ncol}) uten å vise faktiske tall.
 }
 \details{
 Med \code{meta = TRUE} legges det til to ekstra kolonner: \code{n_unique} og

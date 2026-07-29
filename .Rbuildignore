@@ -2,4 +2,5 @@
 ^\.Rproj\.user$
 ^data-raw$
 ^log$
+^legacy$
 ^\.claude$

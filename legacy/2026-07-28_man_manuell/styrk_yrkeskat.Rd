@@ -7,8 +7,8 @@
 \format{
 Et \code{data.frame} med 10 rader og 2 kolonner:
 \describe{
-\item{yrke1}{\code{character}. Første siffer i yrkeskoden (\code{"0"}–\code{"9"}).}
-\item{yrkeskat}{\code{character}. Yrkeskategori.}
+  \item{yrke1}{\code{character}. Første siffer i yrkeskoden (\code{"0"}–\code{"9"}).}
+  \item{yrkeskat}{\code{character}. Yrkeskategori.}
 }
 }
 \source{
@@ -27,8 +27,9 @@ SSBs standard for yrkesklassifisering.
 sifrene 2–4 som brøt ved overgangen — se \link{styrk_noa}.
 
 \strong{Merk om «P»-prefikset:} i Aa-registeret ligger yrkeskoden som
-\code{styrk08_kode} med en bokstav \code{"P"} foran. Første siffer hentes derfor med
-\code{substr(styrk08_kode, 2, 2)}, ikke \code{substr(styrk08_kode, 1, 1)}.
+\code{styrk08_kode} med en bokstav \code{"P"} foran. Første siffer hentes
+derfor med \code{substr(styrk08_kode, 2, 2)}, ikke
+\code{substr(styrk08_kode, 1, 1)}.
 }
 \examples{
 styrk_yrkeskat

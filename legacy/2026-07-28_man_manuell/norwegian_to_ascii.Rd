@@ -12,9 +12,9 @@ norwegian_to_ascii(x)
 \value{
 En tegnvektor av samme lengde som \code{x}, med norske særtegn erstattet:
 \itemize{
-\item \code{æ} → \code{ae}, \code{Æ} → \code{Ae}
-\item \code{ø} → \code{o}, \code{Ø} → \code{O}
-\item \code{å} → \code{a}, \code{Å} → \code{A}
+  \item \code{æ} → \code{ae}, \code{Æ} → \code{Ae}
+  \item \code{ø} → \code{o}, \code{Ø} → \code{O}
+  \item \code{å} → \code{a}, \code{Å} → \code{A}
 }
 }
 \description{
@@ -27,5 +27,4 @@ norwegian_to_ascii("Hei, Ærverdige Ørn fra Ålesund")
 
 norwegian_to_ascii(c("blåbær", "grønn", "Åre"))
 # [1] "blaabaer" "gronn"    "Are"
-
 }

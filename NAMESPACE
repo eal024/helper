@@ -2,4 +2,3 @@
 
 export(norwegian_to_ascii)
 export(struktur)
-

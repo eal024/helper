@@ -7,8 +7,8 @@
 \format{
 Et \code{data.frame} med 99 rader og 2 kolonner:
 \describe{
-\item{naring2}{\code{character}. To første sifre i NACE-SN07, nullpolstret (\code{"01"}–\code{"99"}).}
-\item{hovednaring}{\code{character}. SSBs hovednæring, 15 nivåer + \code{"Ukjent"}.}
+  \item{naring2}{\code{character}. To første sifre i NACE-SN07, nullpolstret (\code{"01"}–\code{"99"}).}
+  \item{hovednaring}{\code{character}. SSBs hovednæring, 15 nivåer + \code{"Ukjent"}.}
 }
 }
 \source{
@@ -24,17 +24,18 @@ Oppslagstabell fra de to første sifrene i næringskoden (NACE-SN07) til SSBs
 15 hovednæringer. Tabellen er utvidet — én rad per kode fra \code{"01"} til
 \code{"99"} — slik at et oppslag alltid treffer og ingen intervall-logikk trengs.
 
-Koder som ikke inngår i noen hovednæring (\code{"04"}, \code{"34"}, \code{"40"}, \code{"44"},
-\code{"48"}, \code{"54"}, \code{"57"}, \code{"67"}, \code{"83"}, \code{"89"}) får \code{"Ukjent"}. Disse finnes
-ikke i NACE-SN07.
+Koder som ikke inngår i noen hovednæring (\code{"04"}, \code{"34"}, \code{"40"},
+\code{"44"}, \code{"48"}, \code{"54"}, \code{"57"}, \code{"67"}, \code{"83"},
+\code{"89"}) får \code{"Ukjent"}. Disse finnes ikke i NACE-SN07.
 
 \strong{Gyldighet:} NACE-SN07 gjelder fra 1. kvartal 2009. Eldre data bruker et
 annet kodeverk, og tabellen skal ikke brukes på dem.
 
-\strong{Merk om ledende null:} nøkkelen er \code{character}. Er næringskoden lagret
-numerisk, faller den ledende nullen bort, og \code{substr(kode, 1, 2)} gir da
-\code{"12"} i stedet for \code{"01"}. Feilen er stille og rammer systematisk alle
-næringer 01–09. Sjekk \code{table(nchar(naering_kode))} før oppslag.
+\strong{Merk om ledende null:} nøkkelen er \code{character}. Er næringskoden
+lagret numerisk, faller den ledende nullen bort, og \code{substr(kode, 1, 2)}
+gir da \code{"12"} i stedet for \code{"01"}. Feilen er stille og rammer
+systematisk alle næringer 01–09. Sjekk \code{table(nchar(naering_kode))} før
+oppslag.
 }
 \examples{
 # Slaa opp hovednaering for en femsifret NACE-kode

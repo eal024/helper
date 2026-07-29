@@ -7,11 +7,11 @@
 \format{
 Et \code{data.frame} med 6 rader og 3 kolonner:
 \describe{
-  \item{sekt_kode}{\code{character}. Institusjonell sektorkode.}
-  \item{sektor2}{\code{character}. Todelt inndeling — her alltid \code{"OFF"}.
-    Koder utenfor tabellen er \code{"PRIV"}.}
-  \item{sektor3}{\code{character}. Tredelt inndeling: \code{"STAT"} eller
-    \code{"KOMM"}. Koder utenfor tabellen er \code{"PRIV"}.}
+\item{sekt_kode}{\code{character}. Institusjonell sektorkode.}
+\item{sektor2}{\code{character}. Todelt inndeling — her alltid \code{"OFF"}.
+Koder utenfor tabellen er \code{"PRIV"}.}
+\item{sektor3}{\code{character}. Tredelt inndeling: \code{"STAT"} eller \code{"KOMM"}.
+Koder utenfor tabellen er \code{"PRIV"}.}
 }
 }
 \source{
@@ -26,19 +26,16 @@ sektor_kode
 Oppslagstabell fra institusjonell sektorkode (\code{sekt_2014_bf} i
 Aa-registeret) til en todelt og en tredelt sektorinndeling.
 
-\strong{Tabellen inneholder kun de offentlige kodene.} Alt som ikke står her
-er privat sektor. Bruk \code{merge(..., all.x = TRUE)} og sett \code{NA} til
-\code{"PRIV"}:
+\strong{Tabellen inneholder kun de offentlige kodene.} Alt som ikke står her er
+privat sektor. Bruk \code{merge(..., all.x = TRUE)} og sett \code{NA} til \code{"PRIV"}:
 
-\preformatted{
-df$sektor2[is.na(df$sektor2)] <- "PRIV"
+\if{html}{\out{<div class="sourceCode">}}\preformatted{df$sektor2[is.na(df$sektor2)] <- "PRIV"
 df$sektor3[is.na(df$sektor3)] <- "PRIV"
-}
+}\if{html}{\out{</div>}}
 
-\strong{Gyldighet:} variabelen heter \code{sekt_2014_bf} i
-Aa-registerdataene fra og med 2015. Før dette har den et annet navn (trolig
-\code{sektor}), og kodeverket endret seg også i 2012. Tabellen er ikke
-verifisert for data før 2015.
+\strong{Gyldighet:} variabelen heter \code{sekt_2014_bf} i Aa-registerdataene fra og
+med 2015. Før dette har den et annet navn (trolig \code{sektor}), og kodeverket
+endret seg også i 2012. Tabellen er ikke verifisert for data før 2015.
 }
 \examples{
 sektor_kode

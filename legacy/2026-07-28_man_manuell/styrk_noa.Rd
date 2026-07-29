@@ -7,8 +7,8 @@
 \format{
 Et \code{data.frame} med 406 rader og 2 kolonner:
 \describe{
-\item{yrke4}{\code{character}. Firesifret STYRK-08-kode, nullpolstret.}
-\item{noa}{\code{character}. NOA-yrkesgruppe, 47 nivåer.}
+  \item{yrke4}{\code{character}. Firesifret STYRK-08-kode, nullpolstret.}
+  \item{noa}{\code{character}. NOA-yrkesgruppe, 47 nivåer.}
 }
 }
 \source{
@@ -28,9 +28,9 @@ for arbeidsmiljø- og yrkesanalyser.
 STYRK brukt, der sifrene 2–4 betyr noe annet. Tabellen skal ikke brukes på
 data før 2014.
 
-\strong{Dekning er ufullstendig.} Ikke alle STYRK-08-koder inngår i en NOA-gruppe.
-Oppslag på en kode som mangler gir \code{NA} — det er tilsiktet, og skal
-håndteres eksplisitt i analysen (for eksempel som \code{"Ukjent"}).
+\strong{Dekning er ufullstendig.} Ikke alle STYRK-08-koder inngår i en
+NOA-gruppe. Oppslag på en kode som mangler gir \code{NA} — det er tilsiktet,
+og skal håndteres eksplisitt i analysen (for eksempel som \code{"Ukjent"}).
 }
 \examples{
 # Sykepleiere og butikkmedarbeidere

@@ -7,45 +7,45 @@
 \format{
 Et tibble med 394 840 rader og 49 kolonner. Sentrale variabler:
 \describe{
-  \item{\strong{Arbeidstilbud (utfall)}}{}
-  \item{workedm}{\code{numeric}. 1 hvis mor jobbet året før, ellers 0.}
-  \item{weeksm}{\code{numeric}. Uker i arbeid året før, mor.}
-  \item{hourswm}{\code{numeric}. Uketimer i arbeid, mor.}
-  \item{incomem}{\code{numeric}. Mors arbeidsinntekt (USD).}
-  \item{\strong{Fertilitet (endogen)}}{}
-  \item{kidcount}{\code{numeric}. Antall barn i husholdningen.}
-  \item{morekids}{\code{numeric}. 1 hvis mor har mer enn to barn, ellers 0.}
-  \item{\strong{Instrumenter}}{}
-  \item{samesex}{\code{numeric}. 1 hvis de to første barna har samme kjønn.}
-  \item{boys2}{\code{numeric}. 1 hvis begge de to første barna er gutter.}
-  \item{girls2}{\code{numeric}. 1 hvis begge de to første barna er jenter.}
-  \item{multi2nd}{\code{numeric}. 1 hvis flerlingfødsel ved andre fødsel.}
-  \item{twins2}{\code{numeric}. 1 hvis tvillingfødsel ved andre fødsel.}
-  \item{\strong{Kovariater}}{}
-  \item{agem}{\code{numeric}. Mors alder (år).}
-  \item{agefstm}{\code{numeric}. Mors alder ved første fødsel.}
-  \item{ageqm}{\code{numeric}. Mors alder i kvartaler.}
-  \item{ageqk}{\code{numeric}. Første barns alder i kvartaler.}
-  \item{ageq2nd}{\code{numeric}. Andre barns alder i kvartaler.}
-  \item{ageq3rd}{\code{numeric}. Tredje barns alder i kvartaler.}
-  \item{boy1st}{\code{numeric}. 1 hvis første barn er gutt.}
-  \item{boy2nd}{\code{numeric}. 1 hvis andre barn er gutt.}
-  \item{blackm, hispm, othracem}{\code{numeric}. Mors etnisitet (hvit referansekategori).}
-  \item{blackd, hispd, othraced}{\code{numeric}. Fars etnisitet (hvit referansekategori).}
-  \item{educm}{\code{numeric}. Mors utdanningsnivå (år).}
-  \item{hsgrad, hsormore, moreths}{\code{numeric}. Dummyer avledet fra \code{educm}.}
-  \item{marital}{\code{numeric}. Mors sivilstatus.}
-  \item{\strong{Husholdsinntekt}}{}
-  \item{faminc}{\code{numeric}. Familieinntekt.}
-  \item{famincl}{\code{numeric}. Log familieinntekt.}
-  \item{nonmomi, nonmomil}{\code{numeric}. Inntekt utenom mors arbeidsinntekt.}
-  \item{\strong{Far}}{}
-  \item{aged}{\code{numeric}. Fars alder.}
-  \item{agefstd}{\code{numeric}. Fars alder ved første fødsel.}
-  \item{weeksd}{\code{numeric}. Uker i arbeid, far.}
-  \item{hourswd}{\code{numeric}. Uketimer i arbeid, far.}
-  \item{incomed}{\code{numeric}. Fars arbeidsinntekt.}
-  \item{workedd}{\code{numeric}. 1 hvis far jobbet året før.}
+\item{\strong{Arbeidstilbud (utfall)}}{}
+\item{workedm}{\code{numeric}. 1 hvis mor jobbet året før, ellers 0.}
+\item{weeksm}{\code{numeric}. Uker i arbeid året før, mor.}
+\item{hourswm}{\code{numeric}. Uketimer i arbeid, mor.}
+\item{incomem}{\code{numeric}. Mors arbeidsinntekt (USD).}
+\item{\strong{Fertilitet (endogen)}}{}
+\item{kidcount}{\code{numeric}. Antall barn i husholdningen.}
+\item{morekids}{\code{numeric}. 1 hvis mor har mer enn to barn, ellers 0.}
+\item{\strong{Instrumenter}}{}
+\item{samesex}{\code{numeric}. 1 hvis de to første barna har samme kjønn.}
+\item{boys2}{\code{numeric}. 1 hvis begge de to første barna er gutter.}
+\item{girls2}{\code{numeric}. 1 hvis begge de to første barna er jenter.}
+\item{multi2nd}{\code{numeric}. 1 hvis flerlingfødsel ved andre fødsel.}
+\item{twins2}{\code{numeric}. 1 hvis tvillingfødsel ved andre fødsel.}
+\item{\strong{Kovariater}}{}
+\item{agem}{\code{numeric}. Mors alder (år).}
+\item{agefstm}{\code{numeric}. Mors alder ved første fødsel.}
+\item{ageqm}{\code{numeric}. Mors alder i kvartaler.}
+\item{ageqk}{\code{numeric}. Første barns alder i kvartaler.}
+\item{ageq2nd}{\code{numeric}. Andre barns alder i kvartaler.}
+\item{ageq3rd}{\code{numeric}. Tredje barns alder i kvartaler.}
+\item{boy1st}{\code{numeric}. 1 hvis første barn er gutt.}
+\item{boy2nd}{\code{numeric}. 1 hvis andre barn er gutt.}
+\item{blackm, hispm, othracem}{\code{numeric}. Mors etnisitet (hvit referansekategori).}
+\item{blackd, hispd, othraced}{\code{numeric}. Fars etnisitet (hvit referansekategori).}
+\item{educm}{\code{numeric}. Mors utdanningsnivå (år).}
+\item{hsgrad, hsormore, moreths}{\code{numeric}. Dummyer avledet fra \code{educm}.}
+\item{marital}{\code{numeric}. Mors sivilstatus.}
+\item{\strong{Husholdsinntekt}}{}
+\item{faminc}{\code{numeric}. Familieinntekt.}
+\item{famincl}{\code{numeric}. Log familieinntekt.}
+\item{nonmomi, nonmomil}{\code{numeric}. Inntekt utenom mors arbeidsinntekt.}
+\item{\strong{Far}}{}
+\item{aged}{\code{numeric}. Fars alder.}
+\item{agefstd}{\code{numeric}. Fars alder ved første fødsel.}
+\item{weeksd}{\code{numeric}. Uker i arbeid, far.}
+\item{hourswd}{\code{numeric}. Uketimer i arbeid, far.}
+\item{incomed}{\code{numeric}. Fars arbeidsinntekt.}
+\item{workedd}{\code{numeric}. 1 hvis far jobbet året før.}
 }
 }
 \source{
@@ -68,8 +68,7 @@ Utvalget er trukket fra US Census 1980 (Public Use Micro Sample, 5 \%),
 og består av gifte mødre i alderen 21–35 år med minst to barn. Datasettet
 brukes klassisk til å estimere kausaleffekten av ekstra barn på mors
 arbeidstilbud, der \code{samesex} (de to første barna har samme kjønn) eller
-\code{twins2} (tvillinger ved andre fødsel) brukes som instrument for
-\code{morekids}.
+\code{twins2} (tvillinger ved andre fødsel) brukes som instrument for \code{morekids}.
 }
 \details{
 \strong{Bruksområde:} Estimering av kausaleffekten av fertilitet på
@@ -77,12 +76,12 @@ arbeidstilbud, klassisk eksempel i pensum for ECON5106 (UiO) og ECON 4137.
 
 \strong{Sentrale variabler i seminarbruken:}
 \itemize{
-  \item Utfall: \code{workedm}, \code{weeksm}, \code{hourswm}, \code{incomem}
-  \item Endogen: \code{morekids} eller \code{kidcount}
-  \item Instrument: \code{samesex} (preferanse for kjønnsblandet søskenflokk)
-    eller \code{twins2} (eksogent fertilitetssjokk)
-  \item Standard kovariater: \code{agem}, \code{agefstm}, \code{ageqk},
-    \code{ageq2nd}, \code{boy1st}, \code{boy2nd}, \code{blackm}, \code{hispm}
+\item Utfall: \code{workedm}, \code{weeksm}, \code{hourswm}, \code{incomem}
+\item Endogen: \code{morekids} eller \code{kidcount}
+\item Instrument: \code{samesex} (preferanse for kjønnsblandet søskenflokk)
+eller \code{twins2} (eksogent fertilitetssjokk)
+\item Standard kovariater: \code{agem}, \code{agefstm}, \code{ageqk}, \code{ageq2nd},
+\code{boy1st}, \code{boy2nd}, \code{blackm}, \code{hispm}
 }
 }
 \examples{
