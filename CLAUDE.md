@@ -10,11 +10,16 @@
 helper/
 ├── R/                  # Kildekode og datasett-dokumentasjon (roxygen2)
 ├── data/               # Binære datasett (.rda)
+├── data-raw/           # Kildedata og prep-skript (ikke med i bygget pakke)
 ├── man/                # Generert dokumentasjon (.Rd) — ikke rediger manuelt
+├── log/                # Fremdriftslogg
+├── legacy/             # Arkiv — gamle versjoner, aldri slett
 ├── DESCRIPTION         # Pakkemetadata
 ├── NAMESPACE           # Generert av roxygen2 — ikke rediger manuelt
 └── helper.Rproj        # RStudio-prosjektfil
 ```
+
+`data-raw/`, `log/`, `legacy/` og `.claude/` er ekskludert i `.Rbuildignore`.
 
 ## Fremdriftslogg — les dette først
 

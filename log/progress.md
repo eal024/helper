@@ -60,10 +60,26 @@ størrelses-INFO, begge nå løst. Utover det er verifisert direkte:
 `.Rbuildignore`, `CLAUDE.md`, `legacy/2026-07-28_man_manuell/` (ny),
 `log/progress.md`
 
-**Fortsatt åpent:** sektorkodenes offisielle navn er ikke verifisert mot SSB
-Klass 39 — `3900` ligger under STAT i SAS-kilden, men kan være kommunalt eide
-selskaper. `angev98` er fortsatt 8,7 MB; subsetting til seminarvariabler er ikke
-vurdert ferdig.
+**Ryddet ved øktslutt:** strukturtreet i `CLAUDE.md` manglet `data-raw/`, `log/`
+og `legacy/`. README-ens «Utvikling»-avsnitt viste fortsatt til `devtools` og
+motsa den nye regelen — begge rettet.
+
+**Pakketilstand:**
+- Versjon: 0.0.0.9000
+- Eksporterte funksjoner: `norwegian_to_ascii()`, `struktur()`
+- Datasett: `grunnbelop_long`, `angev98`, `nace_hovednaring`, `styrk_yrkeskat`,
+  `styrk_noa`, `sektor_kode`
+- Avhengigheter: kun base R (`R >= 3.5`) — ingen `Imports`, ingen `Suggests`
+- `man/` er nå roxygen-generert; `.Rd` skal ikke redigeres for hånd
+- Installert størrelse: 8,7 MB
+
+**Fortsatt åpent:**
+1. Sektorkodenes offisielle navn er ikke verifisert mot SSB Klass 39 — `3900`
+   ligger under STAT i SAS-kilden, men kan være kommunalt eide selskaper
+2. `angev98` er 8,7 MB og utgjør nesten hele pakkens størrelse; subsetting til
+   seminarvariabler er ikke vurdert ferdig
+3. Full `R CMD check` er aldri kjørt til ende på denne maskinen (minnepress).
+   Bør kjøres på en maskin med mer ledig RAM før pakken deles bredere
 
 ---
 

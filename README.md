@@ -131,8 +131,16 @@ struktur(mtcars, meta = TRUE)
 
 ## Utvikling
 
+Pakken har ingen `Imports` eller `Suggests` — kun `R (>= 3.5)`. `devtools` er
+bevisst ikke i bruk; `roxygen2` gjør dokumentasjonsjobben alene, og resten
+dekkes av R-ens innebygde verktøy.
+
 ```r
-devtools::load_all()   # Last inn pakken lokalt
-devtools::document()   # Regenerer dokumentasjon
-devtools::check()      # Kjør R CMD CHECK
+roxygen2::roxygenise(".")   # Regenerer man/ og NAMESPACE
+```
+
+```bash
+R CMD build .
+R CMD INSTALL -l <lib> helper_*.tar.gz
+R CMD check --no-manual helper_*.tar.gz
 ```
