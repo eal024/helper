@@ -87,6 +87,9 @@ installasjonssteget. Installasjonen i seg selv går rent, og `tools::checkRd()`
 | `styrk_yrkeskat`  | STYRK-08 (første siffer) → 10 yrkeskategorier, 10 rader   |
 | `styrk_noa`       | STYRK-08 (fire sifre) → 47 NOA-grupper (Stami), 406 rader |
 | `sektor_kode`     | Institusjonell sektorkode → OFF/PRIV og STAT/KOMM/PRIV, 6 rader |
+| `nav_kontor`      | Nav lokalkontor (NORG `enhet_nr`, orgnr, adresse, kommune, mottak), 243 rader, per 2026-09-24 |
+| `nav_enheter`     | Alle enheter på nav.no inkl. spesialenheter, 261 rader |
+| `nav_mottak`      | Publikumsmottak med besøksadresse og åpningstider, 365 rader |
 
 ## Avhengigheter
 

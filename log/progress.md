@@ -5,6 +5,32 @@ Leses ved starten av hver økt for å gjenopprette kontekst.
 
 ---
 
+## 2026-09-24 — Nye datasett: `nav_kontor`, `nav_enheter`, `nav_mottak`
+
+**Hva ble gjort:** Nav sine lokalkontor lagt inn som datasett. Kilde er
+nav.no sine kontorsider (NORG-record per enhet) koblet til Enhetsregisteret
+på orgnr; henting og kobling ligger i `phd-data/nav_kontor/` (skript 01–03,
+databeskrivelse `2026-09-24_nav_kontor_data_description.md`). Prep-skriptet
+`data-raw/prep_nav_kontor.R` (kun base R) leser de rensede CSV-ene derfra,
+henter kommunenummer fra Brreg (235) eller Brings postnummerregister (8,
+kopi i `data-raw/`), og lager tre tabeller: 243 lokalkontor, 261 enheter,
+365 publikumsmottak. Dokumentert i `R/nav_kontor.R`, `man/` regenerert med
+roxygen2, bygget og installert i brukerbiblioteket (R 4.6).
+
+**Beslutning:** lagt i `helper`, ikke i en ny pakke — det er en kodeliste
+(kontor → geografi), samme natur som SSB-kodeverkene, og pakken finnes
+allerede på S.
+
+**Filer:** `data-raw/prep_nav_kontor.R`, `data-raw/postnummerregister-ansi_2026-09-24.txt`,
+`R/nav_kontor.R`, `data/nav_{kontor,enheter,mottak}.rda`, `man/nav_*.Rd`,
+`README.md`, `CLAUDE.md`.
+
+**Neste steg:** bekreft på S at `enhet_nr` er lik Arenas kontorkode; ved ny
+nedlasting kjøres phd-data-skriptene på nytt og så prep-skriptet, samme
+objektnavn, ny `dato_uttrekk`.
+
+---
+
 ## 2026-07-29 — `man/` regenerert med roxygen2; manuelle `.Rd`-filer verifisert
 
 **Utløser:** Det åpne punktet som har fulgt loggen siden 2026-03-02 — `.Rd`-filene

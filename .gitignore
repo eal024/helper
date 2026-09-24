@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+
+helper_*.tar.gz

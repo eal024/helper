@@ -102,6 +102,35 @@ nace_hovednaring$hovednaring[match(substr(koder, 1, 2), nace_hovednaring$naring2
 
 **Kilde:** [NACE-SN07](https://www.ssb.no/virksomheter-foretak-og-regnskap/nace), [STYRK-08](https://www.ssb.no/arbeid-og-lonn/artikler-og-publikasjoner/standard-for-yrkesklassifisering-styrk-08), [SSB Klass 39](https://www.ssb.no/klass/klassifikasjoner/39). Grupperingene er hentet fra Navs SAS-program mot Aa-registeret.
 
+### Nav-kontor: `nav_kontor`, `nav_enheter`, `nav_mottak`
+
+Nav sine lokalkontor slik nav.no lister dem (NORG-record per kontorside), med NORG-enhetsnummer, orgnr, adresse, kommune og publikumsmottak. Øyeblikksbilde per 2026-09-24 — ingen historikk.
+
+| Datasett | Innhold | Rader |
+|---|---|---|
+| `nav_kontor` | Lokalkontor (`type == "LOKAL"`), én rad per kontor, nøkkel `enhet_nr` | 243 |
+| `nav_enheter` | Alle enheter nav.no lister, inkl. hjelpemiddelsentraler og enheter uten publikumsmottak | 261 |
+| `nav_mottak` | Publikumsmottak med besøksadresse og åpningstider, én rad per mottak | 365 |
+
+```r
+data(nav_kontor)
+
+# Kommune for en Arena-kontorkode
+nav_kontor$kommune[match("0328", nav_kontor$enhet_nr)]
+# [1] "OSLO"
+
+# Kontor med drop-in (minst én ukedag uten timeavtale)
+table(nav_kontor$dropin)
+```
+
+**Tre ting å være klar over:**
+
+- **`enhet_nr`** er NORG-koden (fire sifre, gammelt fylkesprefiks). Antatt lik Arenas kontorkode — ikke bekreftet mot registerdata ennå.
+- **Kommunenummer** følger 2024-inndelingen. Fra Brreg for 235 kontor, fra postnummer for 8 (`kommunenr_kilde`).
+- **Besøkskontor vs. arbeidsplass.** Alle 243 lokalkontor har minst ett publikumsmottak; 50 har flere (opptil seks), se `nav_mottak`. Enhetene uten mottak i `nav_enheter` (økonomi, kontroll, utland) er rene arbeidsplasser.
+
+**Kilde:** nav.no kontorsider, [Enhetsregisteret](https://data.brreg.no/enhetsregisteret/api/dokumentasjon/no/index.html), Brings postnummerregister. Henting og kobling i `phd-data/nav_kontor/`, prep i `data-raw/prep_nav_kontor.R`.
+
 ## Funksjoner
 
 ### `norwegian_to_ascii()`
