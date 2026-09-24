@@ -8,7 +8,8 @@
 # Beskrivelse: ~/Documents/phd-data/nav_kontor/2026-09-24_nav_kontor_data_description.md
 #
 # Kommunenummer kommer fra Brreg der orgnr matcher (235 av 243 lokalkontor),
-# ellers fra Brings postnummerregister via postnummer.
+# ellers fra Brings postnummerregister via postnummer. Koordinater (lat/lon,
+# EPSG:4258) fra Kartverkets adresse-API via phd-data-skript 04.
 #
 # Kun base R.
 
@@ -25,6 +26,23 @@ les <- function(fil) {
 navno  <- les("02_navno_kontor.csv")
 mottak <- les("02_navno_mottak.csv")
 brreg  <- les("01_brreg_nav_underenheter.csv")
+geo    <- les("04_geokoder.csv")
+geo$lat <- as.numeric(geo$lat)
+geo$lon <- as.numeric(geo$lon)
+geo$poststed <- toupper(geo$poststed)
+geo <- geo[, c("gate", "postnr", "poststed", "lat", "lon", "geo_kvalitet")]
+
+# Slaa opp koordinater paa (gate, postnr, poststed); gate trimmes som i skript 04
+slaa_opp_geo <- function(d, gate, postnr, poststed) {
+    n <- merge(data.frame(gate = trimws(gsub("\\s+", " ", d[[gate]])),
+                          postnr = d[[postnr]],
+                          poststed = toupper(trimws(d[[poststed]])),
+                          rad = seq_len(nrow(d)), stringsAsFactors = FALSE),
+               geo, by = c("gate", "postnr", "poststed"), all.x = TRUE)
+    n <- n[order(n$rad), c("lat", "lon", "geo_kvalitet")]
+    rownames(n) <- NULL
+    n
+}
 
 postnr <- read.delim(path_postnr, header = FALSE, colClasses = "character",
                      fileEncoding = "latin1",
@@ -49,6 +67,7 @@ enheter$kommune   <- ifelse(!is.na(enheter$kommunenr_brreg),
 enheter$kommunenr_kilde <- ifelse(!is.na(enheter$kommunenr_brreg), "brreg", "postnr")
 enheter$i_brreg <- !is.na(enheter$kommunenr_brreg)
 enheter$antall_ansatte <- as.integer(enheter$antall_ansatte)
+enheter <- cbind(enheter, slaa_opp_geo(enheter, "beliggenhet_gate", "beliggenhet_postnr", "beliggenhet_poststed"))
 enheter$dato_uttrekk <- dato_uttrekk
 
 stopifnot(!any(is.na(enheter$kommunenr)))
@@ -74,6 +93,7 @@ kol <- c("enhet_nr", "navn", "type", "status", "orgnr", "i_brreg",
          "poststed" = "beliggenhet_poststed",
          "kommunenr", "kommune", "kommunenr_kilde", "antall_ansatte",
          "publikumsmottak", "n_mottak", "dropin",
+         "lat", "lon", "geo_kvalitet",
          "telefon", "skriftspraak", "dato_uttrekk")
 nav_enheter <- enheter[, kol]
 names(nav_enheter) <- ifelse(names(kol) == "", kol, names(kol))
@@ -86,10 +106,11 @@ rownames(nav_kontor) <- NULL
 stopifnot(nrow(nav_enheter) == 261, nrow(nav_kontor) == 243,
           !any(duplicated(nav_kontor$enhet_nr)), !any(is.na(nav_kontor$gate)))
 
+mottak <- cbind(mottak, slaa_opp_geo(mottak, "besok_gate", "besok_postnr", "besok_poststed"))
 nav_mottak <- mottak[, c("enhet_nr", "mottak_nr", "besok_gate", "besok_postnr",
                          "besok_poststed", "stedsbeskrivelse", "adkomstbeskrivelse",
                          "n_dager_aapent", "n_dager_dropin", "n_dager_kun_time",
-                         "aapningstider")]
+                         "aapningstider", "lat", "lon", "geo_kvalitet")]
 names(nav_mottak)[names(nav_mottak) == "besok_gate"]     <- "gate"
 names(nav_mottak)[names(nav_mottak) == "besok_postnr"]   <- "postnr"
 names(nav_mottak)[names(nav_mottak) == "besok_poststed"] <- "poststed"
@@ -99,7 +120,8 @@ nav_mottak$dato_uttrekk <- dato_uttrekk
 nav_mottak <- nav_mottak[order(nav_mottak$enhet_nr, nav_mottak$mottak_nr), ]
 rownames(nav_mottak) <- NULL
 
-stopifnot(nrow(nav_mottak) == 365, all(nav_kontor$publikumsmottak))
+stopifnot(nrow(nav_mottak) == 365, all(nav_kontor$publikumsmottak),
+          !any(is.na(nav_kontor$lat)), !any(is.na(nav_mottak$lat)))
 
 save(nav_kontor,  file = "data/nav_kontor.rda",  compress = "bzip2")
 save(nav_enheter, file = "data/nav_enheter.rda", compress = "bzip2")

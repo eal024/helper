@@ -5,6 +5,17 @@ Leses ved starten av hver økt for å gjenopprette kontekst.
 
 ---
 
+## 2026-09-24 (b) — Koordinater i `nav_kontor`, `nav_enheter` og `nav_mottak`
+
+`lat`, `lon` (EPSG:4258, desimalgrader) og `geo_kvalitet` lagt til i alle
+tre datasettene, fra Kartverkets adresse-API via phd-data-skript
+`nav_kontor/R/04_geokode_kartverket.R` (cache `04_geokoder.csv`). Prep-skriptet
+slår opp på (gate, postnr, poststed) med samme trimming som skript 04, og
+stopper hvis noe kontor eller mottak mangler koordinat. Alle 243 kontor og
+365 mottak har koordinat. Pakken bygget og installert på nytt. README oppdatert.
+
+---
+
 ## 2026-09-24 — Nye datasett: `nav_kontor`, `nav_enheter`, `nav_mottak`
 
 **Hva ble gjort:** Nav sine lokalkontor lagt inn som datasett. Kilde er

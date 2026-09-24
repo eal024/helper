@@ -5,7 +5,7 @@
 \alias{nav_enheter}
 \title{All Nav units listed on nav.no, including specialist units}
 \format{
-A \code{data.frame} with 261 rows and 19 columns, see \link{nav_kontor}.
+A \code{data.frame} with 261 rows and 22 columns, see \link{nav_kontor}.
 }
 \source{
 See \link{nav_kontor}.

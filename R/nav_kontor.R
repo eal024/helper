@@ -16,12 +16,18 @@
 #' post code register for the other 8 (`kommunenr_kilde`). Municipality
 #' numbers follow the 2024 scheme.
 #'
+#' Coordinates `lat`/`lon` are from Kartverket's address API (EPSG:4258,
+#' equivalent to WGS84 for mapping), looked up on the location address.
+#' `geo_kvalitet` is `"A_gate_postnr"` for an exact street and post code hit
+#' or `"B_fuzzy"` for a fuzzy hit; the fuzzy hits are house-letter spacing
+#' only ("3 A" vs "3A") and were checked by hand.
+#'
 #' Every local office has at least one public reception point
 #' (`publikumsmottak`). `dropin` is `TRUE` if any reception point has at
 #' least one weekday open without appointment. Details per reception point
 #' are in [nav_mottak].
 #'
-#' @format A `data.frame` with 243 rows and 19 columns:
+#' @format A `data.frame` with 243 rows and 22 columns:
 #' \describe{
 #'   \item{enhet_nr}{`character`. NORG unit number, four digits, unique key.}
 #'   \item{navn}{`character`. Office name as on nav.no.}
@@ -36,6 +42,8 @@
 #'   \item{publikumsmottak}{`logical`. Has at least one public reception point.}
 #'   \item{n_mottak}{`integer`. Number of reception points (1 to 6).}
 #'   \item{dropin}{`logical`. Any reception point has a weekday open without appointment.}
+#'   \item{lat, lon}{`numeric`. Coordinates of the location address, decimal degrees.}
+#'   \item{geo_kvalitet}{`character`. Geocoding match quality, see Description.}
 #'   \item{telefon}{`character`. Local phone number where given.}
 #'   \item{skriftspraak}{`character`. `"NB"` or `"NN"`.}
 #'   \item{dato_uttrekk}{`Date`. Download date.}
@@ -44,7 +52,8 @@
 #' @source nav.no office pages (embedded NORG record per unit), listed by
 #' <https://www.nav.no/_/service/no.nav.navno/officeInfo>; Enhetsregisteret
 #' bulk file of sub-units <https://data.brreg.no/enhetsregisteret/api/underenheter/lastned>;
-#' Bring post code register. Fetch and join scripts in the phd-data repo,
+#' Bring post code register; Kartverket address API
+#' <https://ws.geonorge.no/adresser/v1>. Fetch and join scripts in the phd-data repo,
 #' `nav_kontor/R/`; prep in `data-raw/prep_nav_kontor.R`.
 #'
 #' @examples
@@ -56,6 +65,9 @@
 #'
 #' # Look up municipality for an Arena office code
 #' nav_kontor$kommune[match("0328", nav_kontor$enhet_nr)]
+#'
+#' # Quick map of all offices
+#' plot(nav_kontor$lon, nav_kontor$lat, asp = 2, pch = 16, cex = 0.6)
 #'
 #' @seealso [nav_enheter], [nav_mottak]
 "nav_kontor"
@@ -74,7 +86,7 @@
 #' Two units in the nav.no list had no page and are missing: the steering
 #' unit for assistive technology (4700) and the central supply unit (4781).
 #'
-#' @format A `data.frame` with 261 rows and 19 columns, see [nav_kontor].
+#' @format A `data.frame` with 261 rows and 22 columns, see [nav_kontor].
 #' @source See [nav_kontor].
 #' @examples
 #' table(nav_enheter$type, nav_enheter$publikumsmottak)
@@ -97,7 +109,7 @@
 #' `n_dager_kun_time` days open by appointment only. Seven reception points
 #' list no open days at all.
 #'
-#' @format A `data.frame` with 365 rows and 13 columns:
+#' @format A `data.frame` with 365 rows and 16 columns:
 #' \describe{
 #'   \item{enhet_nr}{`character`. NORG unit number, joins to [nav_kontor].}
 #'   \item{type}{`character`. Unit type, see [nav_enheter].}
@@ -109,6 +121,8 @@
 #'   \item{n_dager_dropin}{`integer`. Weekdays open without appointment.}
 #'   \item{n_dager_kun_time}{`integer`. Weekdays open by appointment only.}
 #'   \item{aapningstider}{`character`. All five weekdays as one string, for reading.}
+#'   \item{lat, lon}{`numeric`. Coordinates of the visiting address (Kartverket), decimal degrees.}
+#'   \item{geo_kvalitet}{`character`. Geocoding match quality, see [nav_kontor].}
 #'   \item{dato_uttrekk}{`Date`. Download date.}
 #' }
 #'

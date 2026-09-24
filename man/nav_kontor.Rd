@@ -5,7 +5,7 @@
 \alias{nav_kontor}
 \title{Nav local offices with address and municipality}
 \format{
-A \code{data.frame} with 243 rows and 19 columns:
+A \code{data.frame} with 243 rows and 22 columns:
 \describe{
 \item{enhet_nr}{\code{character}. NORG unit number, four digits, unique key.}
 \item{navn}{\code{character}. Office name as on nav.no.}
@@ -20,6 +20,8 @@ A \code{data.frame} with 243 rows and 19 columns:
 \item{publikumsmottak}{\code{logical}. Has at least one public reception point.}
 \item{n_mottak}{\code{integer}. Number of reception points (1 to 6).}
 \item{dropin}{\code{logical}. Any reception point has a weekday open without appointment.}
+\item{lat, lon}{\code{numeric}. Coordinates of the location address, decimal degrees.}
+\item{geo_kvalitet}{\code{character}. Geocoding match quality, see Description.}
 \item{telefon}{\code{character}. Local phone number where given.}
 \item{skriftspraak}{\code{character}. \code{"NB"} or \code{"NN"}.}
 \item{dato_uttrekk}{\code{Date}. Download date.}
@@ -29,7 +31,8 @@ A \code{data.frame} with 243 rows and 19 columns:
 nav.no office pages (embedded NORG record per unit), listed by
 \url{https://www.nav.no/_/service/no.nav.navno/officeInfo}; Enhetsregisteret
 bulk file of sub-units \url{https://data.brreg.no/enhetsregisteret/api/underenheter/lastned};
-Bring post code register. Fetch and join scripts in the phd-data repo,
+Bring post code register; Kartverket address API
+\url{https://ws.geonorge.no/adresser/v1}. Fetch and join scripts in the phd-data repo,
 \verb{nav_kontor/R/}; prep in \code{data-raw/prep_nav_kontor.R}.
 }
 \usage{
@@ -51,6 +54,12 @@ offices whose org number matches a Nav sub-unit there, and from Bring's
 post code register for the other 8 (\code{kommunenr_kilde}). Municipality
 numbers follow the 2024 scheme.
 
+Coordinates \code{lat}/\code{lon} are from Kartverket's address API (EPSG:4258,
+equivalent to WGS84 for mapping), looked up on the location address.
+\code{geo_kvalitet} is \code{"A_gate_postnr"} for an exact street and post code hit
+or \code{"B_fuzzy"} for a fuzzy hit; the fuzzy hits are house-letter spacing
+only ("3 A" vs "3A") and were checked by hand.
+
 Every local office has at least one public reception point
 (\code{publikumsmottak}). \code{dropin} is \code{TRUE} if any reception point has at
 least one weekday open without appointment. Details per reception point
@@ -65,6 +74,9 @@ table(nav_kontor$dropin)
 
 # Look up municipality for an Arena office code
 nav_kontor$kommune[match("0328", nav_kontor$enhet_nr)]
+
+# Quick map of all offices
+plot(nav_kontor$lon, nav_kontor$lat, asp = 2, pch = 16, cex = 0.6)
 
 }
 \seealso{

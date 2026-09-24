@@ -5,7 +5,7 @@
 \alias{nav_mottak}
 \title{Public reception points of Nav units, with opening hours}
 \format{
-A \code{data.frame} with 365 rows and 13 columns:
+A \code{data.frame} with 365 rows and 16 columns:
 \describe{
 \item{enhet_nr}{\code{character}. NORG unit number, joins to \link{nav_kontor}.}
 \item{type}{\code{character}. Unit type, see \link{nav_enheter}.}
@@ -17,6 +17,8 @@ A \code{data.frame} with 365 rows and 13 columns:
 \item{n_dager_dropin}{\code{integer}. Weekdays open without appointment.}
 \item{n_dager_kun_time}{\code{integer}. Weekdays open by appointment only.}
 \item{aapningstider}{\code{character}. All five weekdays as one string, for reading.}
+\item{lat, lon}{\code{numeric}. Coordinates of the visiting address (Kartverket), decimal degrees.}
+\item{geo_kvalitet}{\code{character}. Geocoding match quality, see \link{nav_kontor}.}
 \item{dato_uttrekk}{\code{Date}. Download date.}
 }
 }

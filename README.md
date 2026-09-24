@@ -127,6 +127,7 @@ table(nav_kontor$dropin)
 
 - **`enhet_nr`** er NORG-koden (fire sifre, gammelt fylkesprefiks). Antatt lik Arenas kontorkode — ikke bekreftet mot registerdata ennå.
 - **Kommunenummer** følger 2024-inndelingen. Fra Brreg for 235 kontor, fra postnummer for 8 (`kommunenr_kilde`).
+- **Koordinater.** `lat`/`lon` fra Kartverkets adresse-API på beliggenhetsadressen (kontor) og besøksadressen (mottak). Rett i `plot(lon, lat, asp = 2)` eller ggplot2 med `coord_quickmap()`.
 - **Besøkskontor vs. arbeidsplass.** Alle 243 lokalkontor har minst ett publikumsmottak; 50 har flere (opptil seks), se `nav_mottak`. Enhetene uten mottak i `nav_enheter` (økonomi, kontroll, utland) er rene arbeidsplasser.
 
 **Kilde:** nav.no kontorsider, [Enhetsregisteret](https://data.brreg.no/enhetsregisteret/api/dokumentasjon/no/index.html), Brings postnummerregister. Henting og kobling i `phd-data/nav_kontor/`, prep i `data-raw/prep_nav_kontor.R`.
