@@ -1,4 +1,3 @@
-#' @encoding UTF-8
 #' Nav local offices with address and municipality
 #'
 #' @description
@@ -28,6 +27,7 @@
 #' least one weekday open without appointment. Details per reception point
 #' are in [nav_mottak].
 #'
+#' @encoding UTF-8
 #' @format A `data.frame` with 243 rows and 22 columns:
 #' \describe{
 #'   \item{enhet_nr}{`character`. NORG unit number, four digits, unique key.}
@@ -74,7 +74,6 @@
 "nav_kontor"
 
 
-#' @encoding UTF-8
 #' All Nav units listed on nav.no, including specialist units
 #'
 #' @description
@@ -88,6 +87,7 @@
 #' Two units in the nav.no list had no page and are missing: the steering
 #' unit for assistive technology (4700) and the central supply unit (4781).
 #'
+#' @encoding UTF-8
 #' @format A `data.frame` with 261 rows and 22 columns, see [nav_kontor].
 #' @source See [nav_kontor].
 #' @examples
@@ -96,7 +96,6 @@
 "nav_enheter"
 
 
-#' @encoding UTF-8
 #' Public reception points of Nav units, with opening hours
 #'
 #' @description
@@ -112,6 +111,7 @@
 #' `n_dager_kun_time` days open by appointment only. Seven reception points
 #' list no open days at all.
 #'
+#' @encoding UTF-8
 #' @format A `data.frame` with 365 rows and 16 columns:
 #' \describe{
 #'   \item{enhet_nr}{`character`. NORG unit number, joins to [nav_kontor].}

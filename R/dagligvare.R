@@ -1,4 +1,3 @@
-#' @encoding UTF-8
 #' Grocery stores in Norway with chain, address and coordinates
 #'
 #' @description
@@ -45,6 +44,7 @@
 #' **Dates.** The sub-unit file is from 2026-09-24, the owner (legal unit)
 #' file from 2026-06-19, so `eier_navn` can lag a summer ownership change.
 #'
+#' @encoding UTF-8
 #' @format A `data.frame` with 6 194 rows and 20 columns:
 #' \describe{
 #'   \item{orgnr}{`character`. Org number of the store (sub-unit), unique key.}
