@@ -132,6 +132,32 @@ table(nav_kontor$dropin)
 
 **Kilde:** nav.no kontorsider, [Enhetsregisteret](https://data.brreg.no/enhetsregisteret/api/dokumentasjon/no/index.html), Brings postnummerregister. Henting og kobling i `phd-data/nav_kontor/`, prep i `data-raw/prep_nav_kontor.R`.
 
+### Dagligvarebutikker: `dagligvare`
+
+Alle fysiske dagligvarebutikker i Norge som underenheter i Enhetsregisteret (NACE 47.110), med kjede, eierforetak, adresse, kommune og koordinater fra Kartverket. Øyeblikksbilde per 2026-09-24 — ingen historikk, ingen nedlagte butikker.
+
+| Datasett | Innhold | Rader |
+|---|---|---|
+| `dagligvare` | Én rad per butikk, nøkkel `orgnr` | 6 194 |
+
+```r
+data(dagligvare)
+
+# Butikker per gruppe
+sort(table(dagligvare$gruppe), decreasing = TRUE)
+
+# Bare dagligvare (ikke kiosk) med gatenøyaktig koordinat
+d <- dagligvare[!dagligvare$kiosk & substr(dagligvare$geo_kvalitet, 1, 1) %in% c("A", "B"), ]
+```
+
+**Tre ting å være klar over:**
+
+- **Kjeden leses av butikknavnet**, ikke av eieren: franchisekjeder (REMA 1000, Kiwi) har ett eierselskap per butikk. `kjede` er `NA` for 2 682 uavhengige butikker.
+- **Kiosker** (Narvesen, 7-Eleven, Mix) deler næringskoden og er med, flagget med `kiosk`.
+- **`geo_kvalitet`** sier hvordan koordinaten ble funnet: `A_*` gatenøyaktig (88 %), `B_fuzzy`, `C_postnr` (postnummer-sentroide), `D_ingen`. Se `?dagligvare`.
+
+**Kilde:** [Enhetsregisteret](https://data.brreg.no/enhetsregisteret/api/dokumentasjon/no/index.html) (NLOD), [Kartverkets adresse-API](https://ws.geonorge.no/adresser/v1) (CC BY 4.0). Uttrekk og geokoding i `phd-data/butikker/`, prep i `data-raw/prep_dagligvare.R`.
+
 ## Funksjoner
 
 ### `norwegian_to_ascii()`

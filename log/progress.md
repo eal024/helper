@@ -5,6 +5,20 @@ Leses ved starten av hver økt for å gjenopprette kontekst.
 
 ---
 
+## 2026-09-25 — Nytt datasett: `dagligvare`
+
+Dagligvarebutikker fra Enhetsregisteret (underenheter, NACE 47.110) med
+kjede, eierforetak, adresse, kommune, ansatte og koordinater fra Kartverket.
+Kilde og forbehandling i `phd-data/butikker/` (tre skript), prep i
+`data-raw/prep_dagligvare.R` (kun base R, stopper hvis radtall, nøkkel eller
+koordinatdekning avviker). 6 194 rader, 20 kolonner. Dokumentert i
+`R/dagligvare.R` med forklaring av kjede-regel, kiosk-flagg og de fem
+nivåene i `geo_kvalitet`; eksemplene kjørt via `tools::Rd2ex`.
+`@encoding UTF-8` lagt på alle datasett-dokumentene etter `checkRd`-advarsel
+om æøå. Bygget, installert i brukerbiblioteket, pushet til GitHub.
+
+---
+
 ## 2026-09-24 (b) — Koordinater i `nav_kontor`, `nav_enheter` og `nav_mottak`
 
 `lat`, `lon` (EPSG:4258, desimalgrader) og `geo_kvalitet` lagt til i alle

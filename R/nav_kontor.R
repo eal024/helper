@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' Nav local offices with address and municipality
 #'
 #' @description
@@ -73,6 +74,7 @@
 "nav_kontor"
 
 
+#' @encoding UTF-8
 #' All Nav units listed on nav.no, including specialist units
 #'
 #' @description
@@ -94,6 +96,7 @@
 "nav_enheter"
 
 
+#' @encoding UTF-8
 #' Public reception points of Nav units, with opening hours
 #'
 #' @description

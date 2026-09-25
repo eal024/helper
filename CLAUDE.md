@@ -90,6 +90,7 @@ installasjonssteget. Installasjonen i seg selv går rent, og `tools::checkRd()`
 | `nav_kontor`      | Nav lokalkontor (NORG `enhet_nr`, orgnr, adresse, kommune, mottak), 243 rader, per 2026-09-24 |
 | `nav_enheter`     | Alle enheter på nav.no inkl. spesialenheter, 261 rader |
 | `nav_mottak`      | Publikumsmottak med besøksadresse og åpningstider, 365 rader |
+| `dagligvare`      | Dagligvarebutikker fra Brreg (NACE 47.110) med kjede, adresse, kommune, koordinater, 6 194 rader, per 2026-09-24 |
 
 ## Avhengigheter
 
